@@ -8,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class GameComponent implements OnInit {
 
   constructor() { }
-
+  pickCardAnimation = false
   ngOnInit(): void {
+  }
+
+  takeCard() {
+    this.pickCardAnimation = true;
   }
 
 }
