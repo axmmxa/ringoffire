@@ -18,10 +18,24 @@
     }
 }
 
+.top-card{
+    cursor: pointer;
+    transition: all 125 ease-in-out;
+
+    &:hover{
+        transform: scale(1.1) translateY(-10px);
+    }
+}
+
+.played-card {
+    right: 25px;
+    transform: scale(1.3) translate(140px) translateY(-180px) rotate(-10deg)
+}
+
 
 .pick-card {
-    transition: all 125ms ease-in-out;
     animation: pick-card-animation 1s ease-in-out;
+    transform: scale(1.3) translate(140px) translateY(-180px) rotate(-10deg);
 }
 
 @keyframes pick-card-animation {
