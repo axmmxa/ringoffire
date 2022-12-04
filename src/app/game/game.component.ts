@@ -21,18 +21,21 @@ export class GameComponent implements OnInit {
 
   ngOnInit(): void {
     this.newGame()
-    this.firestore.
-    collection('games').
-    valueChanges().
-    subscribe((game) => {
-      console.log('Game update', game)
-    }
+    // load Data from firebase and show on console
+    this.firestore
+        .collection('games')
+        .valueChanges()
+        .subscribe((game) => {
+          console.log('Game update', game)
+        }
     );
   }
 
   newGame() {
     this.game = new Game()
-    console.log(this.game)
+    this.firestore
+      .collection('games')
+      .add(this.game.toJson());
   }
 
 
