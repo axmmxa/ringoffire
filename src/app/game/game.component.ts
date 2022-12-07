@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { HttpParams } from '@angular/common/http';
 
 
 @Component({
@@ -15,6 +16,7 @@ export class GameComponent implements OnInit {
   pickCardAnimation = false;
   currentCard = ''
   game: Game;
+  gameId:string;
 
   constructor(private route: ActivatedRoute, private firestore: AngularFirestore, public dialog: MatDialog) { }
 
@@ -25,9 +27,11 @@ export class GameComponent implements OnInit {
     this.route.params.subscribe( (params) => {
       console.log('parameter id', params['id'])
 
+      this.gameId = params['id'];
+
       this.firestore
         .collection('games')
-        .doc(params['id'])
+        .doc(this.gameId)
         .valueChanges()
         .subscribe((game:any) => {
           console.log('Game update', game)
@@ -53,6 +57,7 @@ export class GameComponent implements OnInit {
       this.currentCard = this.game.stack.pop()
       this.pickCardAnimation = true;
 
+      this.saveGame()
       this.game.currentPlayer++
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
 
@@ -62,6 +67,7 @@ export class GameComponent implements OnInit {
 
         console.log('newCard', this.currentCard)
       console.log('game', this.game)
+      this.saveGame()
       },1000)
       }
     }
@@ -77,10 +83,17 @@ export class GameComponent implements OnInit {
       dialogRef.afterClosed().subscribe((name:string) => {
         if(name && name.length > 0) {
           this.game.players.push(name)
+          this.saveGame()
         }
         
         
       });
     } 
 
+    saveGame() {
+      this.firestore
+      .collection('games')
+      .doc(this.gameId)
+      .update(this.game.toJson())
+    }
 }
