@@ -13,8 +13,7 @@ import { HttpParams } from '@angular/common/http';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  pickCardAnimation = false;
-  currentCard = ''
+  
   game: Game;
   gameId:string;
 
@@ -39,6 +38,8 @@ export class GameComponent implements OnInit {
           this.game.playedCards = game.playedCards;
           this.game.players = game.players;
           this.game.stack = game.stack;
+          this.game.pickCardAnimation = game.pickCardAnimation;
+          this.game.currentCard = game.currentCard;
         });
 
     });
@@ -53,19 +54,19 @@ export class GameComponent implements OnInit {
 
 
   takeCard() {
-    if(!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop()
-      this.pickCardAnimation = true;
+    if(!this.game.pickCardAnimation) {
+      this.game.currentCard = this.game.stack.pop()
+      this.game.pickCardAnimation = true;
 
       this.saveGame()
       this.game.currentPlayer++
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
 
       setTimeout(()=> {
-        this.pickCardAnimation = false
-        this.game.playedCards.push(this.currentCard)
+        this.game.pickCardAnimation = false
+        this.game.playedCards.push(this.game.currentCard)
 
-        console.log('newCard', this.currentCard)
+        console.log('newCard', this.game.currentCard)
       console.log('game', this.game)
       this.saveGame()
       },1000)
