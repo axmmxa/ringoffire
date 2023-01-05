@@ -7,9 +7,12 @@
 [playerActive]=" i == game.currentPlayer "
 class="player-position hide-mobile"></app-player>
 
-<app-player-mobile  *ngFor="let player of game.players; let i =index;" [ngStyle]="{'left.px' : 10 + (i*90), 'top.px' :0}" [name]="player"
-[playerActive]=" i == game.currentPlayer "
-class="player-position hide-desktop"></app-player-mobile>
+<div class="scroll-container hide-desktop">
+    <app-player-mobile  *ngFor="let player of game.players; let i =index;"  [name]="player"
+    [playerActive]=" i == game.currentPlayer "></app-player-mobile>
+</div>
+
+
 
 
 <div class="field">
