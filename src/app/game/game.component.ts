@@ -5,6 +5,7 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 
 @Component({
@@ -75,8 +76,12 @@ export class GameComponent implements OnInit {
 
     editPlayer(playerId: number) {
       console.log("Editplayer", playerId)
-      const dialogRef = this.dialog.open();
-    }
+      const dialogRef = this.dialog.open(EditPlayerComponent);
+
+      dialogRef.afterClosed().subscribe((change:string) => {
+        console.log("recieved changed", change)
+        });
+      }
 
     openDialog(): void {
       const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
