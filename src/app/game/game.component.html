@@ -13,10 +13,12 @@ class="player-position hide-mobile"></app-player>
     [playerActive]=" i == game.currentPlayer " ></app-player-mobile>
 </div>
 
+ 
+<div *ngIf="gameOver" class="gameOver">
+    <img src="./assets/img/game_over.svg">
+</div>
 
-
-
-<div class="field">
+<div *ngIf="!gameOver" class="field">
     <div class="card-stack">
         <!--cardStackgit-->
         <img  *ngFor="let c of [0,1,2,3]; let i =index;" [ngStyle]="{'right.px' : i*5}"
@@ -34,8 +36,8 @@ class="player-position hide-mobile"></app-player>
     </div>
 </div>
 
-<app-game-info [card]="game.currentCard" class="pin-btn"></app-game-info>
+<app-game-info *ngIf="!gameOver" [card]="game.currentCard" class="pin-btn"></app-game-info>
 
-<button mat-fab color="primary" (click)="openDialog()" class="btn-add">
+<button *ngIf="!gameOver" mat-fab color="primary" (click)="openDialog()" class="btn-add">
     <mat-icon >add</mat-icon>
 </button>
