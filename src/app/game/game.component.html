@@ -9,7 +9,7 @@ class="player-position hide-mobile"></app-player>
 
 <div class="scroll-container hide-desktop">
     <app-player-mobile (click)="editPlayer(i)" *ngFor="let player of game.players; let i =index;"  [name]="player"
-    
+    [image]="game.player_images[i]"
     [playerActive]=" i == game.currentPlayer " ></app-player-mobile>
 </div>
 
