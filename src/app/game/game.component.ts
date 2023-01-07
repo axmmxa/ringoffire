@@ -81,6 +81,8 @@ export class GameComponent implements OnInit {
 
       dialogRef.afterClosed().subscribe((change:string) => {
         console.log("recieved changed", change)
+        this.game.player_images[playerId] = change
+        this.saveGame()
         });
       }
 
