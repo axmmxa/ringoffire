@@ -9,13 +9,13 @@ html, body { height: 100%;
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @media(min-width: 720px){
-    .hide-desktop{
+    .hide-mobile{
         display: none;
     }
 }
 
 @media(max-width: 720px){
-    .hide-mobile{
+    .hide-desktop{
         display: none;
     }
 }

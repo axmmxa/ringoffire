@@ -5,10 +5,10 @@
 
 <app-player (click)="editPlayer(i)" *ngFor="let player of game.players; let i =index;" [ngStyle]="{'top.px' : 20 + (i*70) }" [name]="player"
 [playerActive]="i == game.currentPlayer" [image]="game.player_images[i]"
-class="player-position hide-mobile"></app-player>
+class="player-position hide-desktop "></app-player>
 
-<div class="scroll-container hide-desktop">
-    <app-player-mobile (click)="editPlayer(i)" *ngFor="let player of game.players; let i =index;"  [name]="player"
+<div class="scroll-container">
+    <app-player-mobile class="hide-mobile" (click)="editPlayer(i)" *ngFor="let player of game.players; let i =index;"  [name]="player"
     [image]="game.player_images[i]"
     [playerActive]=" i == game.currentPlayer " ></app-player-mobile>
 </div>
