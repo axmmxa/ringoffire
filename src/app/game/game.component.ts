@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { HttpParams } from '@angular/common/http';
 import { EditPlayerComponent } from '../edit-player/edit-player.component';
+import { ɵallowPreviousPlayerStylesMerge } from '@angular/animations/browser';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { EditPlayerComponent } from '../edit-player/edit-player.component';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
-  
+  gameStart = false
   game: Game;
   gameId:string;
   gameOver = false;
@@ -53,28 +54,29 @@ export class GameComponent implements OnInit {
     this.game = new Game()
   }
 
-
-
-  takeCard() {
-    if(this.game.stack.length == 0) {
-      this.gameOver = true;
-    }else if(!this.game.pickCardAnimation) {
-      this.game.currentCard = this.game.stack.pop()
-      this.game.pickCardAnimation = true;
-      this.game.currentPlayer++
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
-
-      this.saveGame()
-      setTimeout(()=> {
-        this.game.pickCardAnimation = false
-        this.game.playedCards.push(this.game.currentCard)
-
-        console.log('newCard', this.game.currentCard)
-      console.log('game', this.game)
-      this.saveGame()
-      },1000)
+  
+    takeCard() {
+      if(this.game.stack.length == 0) {
+        this.gameOver = true;
+      }else if(!this.game.pickCardAnimation && this.game.players.length >1 ) {
+        this.game.currentCard = this.game.stack.pop()
+        this.game.pickCardAnimation = true;
+        this.game.currentPlayer++
+        this.game.currentPlayer = this.game.currentPlayer % this.game.players.length
+  
+        this.saveGame()
+        setTimeout(()=> {
+          this.game.pickCardAnimation = false
+          this.game.playedCards.push(this.game.currentCard)
+  
+          console.log('newCard', this.game.currentCard)
+        console.log('game', this.game)
+        this.saveGame()
+        },1000)
+        }
       }
-    }
+  
+    
 
 
     editPlayer(playerId: number) {
